@@ -28,7 +28,9 @@ function! ale_linters#python#refurb#GetCommand(buffer) abort
     let l:dir = s:GetDir(a:buffer)
     let l:executable = ale_linters#python#refurb#GetExecutable(a:buffer)
 
-    return ale#path#CdString(l:dir) . ale#Escape(l:executable) . ' ' . expand('%:p')
+    return l:executable . ' '
+    \ . expand('%:p')
+    \ . ale#Pad(ale#Var(a:buffer, 'python_refurb_options'))
 endfunction
 
 function! ale_linters#python#refurb#Handle(buffer, lines) abort
